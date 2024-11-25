@@ -68,7 +68,7 @@ async function updateCafe(data) {
       const random = Math.floor(Math.random() * 1000000);
       content = content.replace(
         /src="[^"]*"(?=[^>]*alt="chzzk-automation")/,
-        `src="https://chatbot.bighead033.com/api/cafe/live?random=${random}"`
+        `src="${data.CHZZK_IMAGE_SRC}?random=${random}"`
       );
     }
 
