@@ -1,0 +1,26 @@
+{
+  "name": "naver-cafe-gate-automation",
+  "version": "1.0.0",
+  "description": "naver cafe gate automation",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/WisdomIT/naver-cafe-gate-automation.git"
+  },
+  "author": "WisdomIT",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/WisdomIT/naver-cafe-gate-automation/issues"
+  },
+  "homepage": "https://github.com/WisdomIT/naver-cafe-gate-automation#readme",
+  "dependencies": {
+    "chzzk": "^1.10.4",
+    "dotenv": "^16.4.5",
+    "fast-xml-parser": "^4.5.0",
+    "puppeteer": "^23.9.0"
+  }
+}
