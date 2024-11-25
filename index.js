@@ -4,6 +4,8 @@ const NID_AUT = process.env.NID_AUT;
 const NID_SES = process.env.NID_SES;
 const NAVER_CAFE_ID = process.env.NAVER_CAFE_ID;
 const YOUTUBE_CHANNEL_ID = process.env.YOUTUBE_CHANNEL_ID;
+const YOUTUBE_WIDTH = process.env.YOUTUBE_WIDTH;
+const YOUTUBE_HEIGHT = process.env.YOUTUBE_HEIGHT;
 const CHZZK_CHANNEL_ID = process.env.CHZZK_CHANNEL_ID;
 const CHZZK_IMAGE_SRC = process.env.CHZZK_IMAGE_SRC;
 
@@ -69,9 +71,12 @@ async function main() {
       NID_AUT,
       NID_SES,
       CHZZK_IMAGE_SRC,
+      YOUTUBE_WIDTH,
+      YOUTUBE_HEIGHT,
       chzzk: changed.chzzk,
       youtube: changed.youtube ? youtube : null,
     });
 }
 
 main();
+setInterval(main, 1000 * 60 * 5);

@@ -2,7 +2,7 @@ import puppeteer from "puppeteer";
 
 /**
  * 카페 대문 수정
- * @param {{NAVER_CAFE_ID:string;NID_AUT:string;NID_SES:string;CHZZK_IMAGE_SRC:string;chzzk:boolean;youtube:string|null}} data
+ * @param {{NAVER_CAFE_ID:string;NID_AUT:string;NID_SES:string;CHZZK_IMAGE_SRC:string;YOUTUBE_WIDTH:string;YOUTUBE_HEIGHT:string;chzzk:boolean;youtube:string|null}} data
  * @returns {Promise<string|null>} 유튜브 최신 영상 ID (검색 불가능할 경우 null)
  */
 async function updateCafe(data) {
@@ -76,7 +76,7 @@ async function updateCafe(data) {
       const youtubeUrl = `https://www.youtube.com/embed/${data.youtube}`;
       content = content.replace(
         /<iframe[^>]*src="[^"]*"[^>]*>/,
-        `<iframe src="${youtubeUrl}" width="560px" height="315px" frameborder="0" scrolling="no" allowfullscreen="">`
+        `<iframe src="${youtubeUrl}" width="${data.YOUTUBE_WIDTH}" height="${data.YOUTUBE_HEIGHT}" frameborder="0" scrolling="no" allowfullscreen="">`
       );
     }
 
