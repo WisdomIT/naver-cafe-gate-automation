@@ -1,11 +1,15 @@
 import puppeteer from "puppeteer";
 
+const MAX_RETRIES = 5;
+const RETRY_DELAY = 5000; // 5초 대기
+
 /**
  * 카페 대문 수정
  * @param {{NAVER_CAFE_ID:string;NID_AUT:string;NID_SES:string;CHZZK_IMAGE_SRC:string;YOUTUBE_WIDTH:string;YOUTUBE_HEIGHT:string;chzzk:boolean;youtube:string|null}} data
+ * @param {number} retryCount? 재시도 횟수
  * @returns {Promise<string|null>} 유튜브 최신 영상 ID (검색 불가능할 경우 null)
  */
-async function updateCafe(data) {
+async function updateCafe(data, retryCount = 0) {
   if (!data.chzzk && !data.youtube) return;
 
   const browser = await puppeteer.launch({
@@ -89,7 +93,25 @@ async function updateCafe(data) {
       page.click("a._click\\(ManageGateEditor\\|Submit\\)"),
     ]);
   } catch (error) {
-    console.error("Error updating cafe header:", error);
+    console.error(
+      `Error updating cafe header (attempt ${retryCount + 1}):`,
+      error
+    );
+
+    await browser.close();
+
+    if (retryCount < MAX_RETRIES) {
+      console.log(
+        `Retrying in ${RETRY_DELAY / 1000} seconds... (${
+          retryCount + 1
+        }/${MAX_RETRIES})`
+      );
+      await new Promise((resolve) => setTimeout(resolve, RETRY_DELAY));
+      return updateCafe(data, retryCount + 1);
+    } else {
+      console.error(`Failed after ${MAX_RETRIES} attempts`);
+      throw error; // 최대 시도 횟수 초과 시 에러 던지기
+    }
   } finally {
     await browser.close();
   }
